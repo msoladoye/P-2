@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"
+        integrity="sha256-yr4fRk/GU1ehYJPAs8P4JlTgu0Hdsp4ZKrx8bDEDC3I=" crossorigin="anonymous"></script>
+    <script src="{{url_for('static', filename='js/index.js')}}"></script>
+    <style>
+        a {
+            box-shadow: none;
+        }
+
+        .container-fluid {
+            height: 100%;
+            width: 100%;
+        }
+
+        #top-nav {
+            background-color: #4a6062;
+            height: 7%;
+        }
+
+        .search-box {
+            height: inherit;
+            background: none;
+            border: 1px solid #5e7273;
+        }
+
+        .search-box:focus {
+            background: none;
+            border: 1px solid #5e7273;
+        }
+
+        .search-box:hover {
+            background: none;
+            border: 1px solid #d6dbdc;
+        }
+
+        .search-box::placeholder {
+            color: #d6dbdc;
+        }
+
+        .body {
+            height: 93%;
+            /* width: 100%; */
+            /* border: 1px solid red; */
+        }
+
+        #side-nav {
+            background-color: #5e7273;
+            color: #d6dbdc;
+            height: 100%;
+            overflow-y: scroll;
+        }
+
+        #side-nav::-webkit-scrollbar {
+            width: 3px;
+        }
+
+        #side-nav::-webkit-scrollbar-track {
+            /* box-shadow: inset 0 0 5px red; */
+            border-radius: 10px;
+        }
+
+        #side-nav::-webkit-scrollbar-thumb {
+            background: #364f51;
+        }
+
+        .username {
+            color: #364F51;
+        }
+
+        .list-group {
+            font-size: 0.99em;
+            /* font-family: ; */
+        }
+
+        .channels>li::before {
+            content: '# ';
+        }
+
+        #addChannelLink:focus {
+            box-shadow: none;
+        }
+
+        .hide {
+            display: none;
+        }
+
+        .hideAddChannel {
+            opacity: 0;
+            animation-name: hideAddChannel;
+            animation-duration: 2s;
+            animation-timing-function: linear;
+            animation-delay: 0s;
+            animation-iteration-count: 1;
+            animation-direction: normal;
+            animation-play-state: running;
+        }
+
+        @keyframes hideAddChannel {
+            from {
+                opacity: 1;
+                line-height: 100%;
+            }
+
+            to {
+                opacity: 0;
+                line-height: 0%;
+            }
+        }
+
+
+        .showAddChannel {
+            display: block;
+            animation-name: showAddChannel;
+            animation-duration: 2s;
+            animation-timing-function: linear;
+            animation-delay: 0s;
+            animation-iteration-count: 1;
+            animation-direction: normal;
+            animation-play-state: running;
+            /* -webkit-animation-name: showAddChannel;
+            -webkit-animation-duration: 2s;
+            -webkit-animation-timing-function: linear;
+            -webkit-animation-delay: 0s;
+            -webkit-animation-iteration-count: 1;
+            -webkit-animation-direction: normal;
+            -webkit-animation-play-state: paused; */
+        }
+
+        @keyframes showAddChannel {
+            from {
+                opacity: 0;
+                line-height: 0%;
+
+            }
+
+            to {
+                opacity: 1;
+                line-height: 100%;
+            }
+        }
+
+        .list-group>li {
+            background-color: #5e7273;
+            border: none;
+            padding: 2% 0 2% 2%;
+            /* font-size: 0.85em; */
+        }
+
+        .list-group>li>a {
+            color: #d6dbdc;
+            text-decoration: none;
+            /* padding: 2% 0 2% 2%; */
+        }
+
+        .list-group>li>a:hover {
+            color: #d6dbdc;
+            /* padding: 2% 0 2% 2%; */
+        }
+
+        .list-group>li:hover {
+            background-color: #364f51;
+        }
+
+        .body-content {
+            height: 100%;
+            width: 100%;
+        }
+
+        .body-content-head {
+            height: 10%;
+            width: 100%;
+        }
+
+        .body-content-messgaes {
+            height: 75%;
+            /* width: 100%; */
+            overflow-y: auto;
+        }
+
+        .body-content-messgaes::-webkit-scrollbar {
+            width: 3px;
+        }
+
+        .body-content-messgaes::-webkit-scrollbar-track {
+            box-shadow: inset 0 0 5px #d6dbdc;
+            border-radius: 10px;
+        }
+
+        .body-content-messgaes::-webkit-scrollbar-thumb {
+            background: #364f51;
+        }
+
+        .user-messages {
+            width: 100%;
+        }
+
+        .user-messages:hover {
+            background-color: #eaeded;
+        }
+
+        .message-input {
+            height: 13%;
+        }
+
+        .message-input #message {
+            height: 60%;
+            border-top: none;
+            border-right: none;
+            border-bottom: 1px solid grey;
+            border-left: none;
+            resize: none;
+            overflow: hidden;
+        }
+
+        .message-input #message:focus {
+            box-shadow: none;
+        }
+    </style>
+    <title>{% block title %}{% endblock %}</title>
+</head>
+
+<body>
+
+    {% block body %}{% endblock %}
+</body>
+
+</html>

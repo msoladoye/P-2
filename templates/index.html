@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+{% extends 'layout.html'%}
+
+<!-- <script src="//cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"
+        integrity="sha256-yr4fRk/GU1ehYJPAs8P4JlTgu0Hdsp4ZKrx8bDEDC3I=" crossorigin="anonymous"></script>
+    <script src="{{url_for('static', filename='js/index.js')}}"></script> -->
+
+{%block title %} Create a username {%endblock%}
+{%block body %}
+<section class="container-fluid">
+    <div class="row p-0" id="top-nav">
+        <div class="col-4"></div>
+        <div class="col-5 pt-1">
+            <form action="#">
+                <!-- <input class="form-control search-box" type="text" name="search" placeholder="search the app" disabled> -->
+            </form>
+        </div>
+        <div class="col-3">
+            <a href="{{url_for('logout')}}" class="btn btn-sm btn-danger">LogOut</a>
+        </div>
+    </div>
+    <div class="row body p-0">
+        <div class="col-2 p-0" id="side-nav">
+            <div class="pl-2">
+                <span class="channel-name">{{current_channel.capitalize()}}</span>
+                <div class="username text text-success">{{username.upper()}}</div>
+            </div>
+            <div class="channels">
+                <h6 class="mt-3">
+                    <input class="form-control hide" type="text" id="addChannel" placeholder="enter channel name">
+                    <a href="#" class="btn btn-sm text-light w-100 text-left" id="addChannelLink">
+                        Channels
+                        <span style="font-size: 1.2em;">+</span>
+                    </a>
+                </h6>
+                <ul class="list-group channels">
+                    {%if userChannels%}
+                    {%for channel in userChannels%}
+                    {%if channel == current_channel%}
+
+                    <li class="list-group-item d-flex align-items-center pl-3 m-0">
+                        <a class="p-0 w-100 text-light" href="{{url_for('channel',current_channel=channel)}}">
+                            &nbsp;
+                            {{channel.capitalize()}}
+                            &nbsp;
+                            <span class="badge badge-light badge-pill"></span>
+                        </a>
+                    </li>
+                    {%else%}
+
+                    <li class="list-group-item d-flex align-items-center pl-3 m-0 userChannelList">
+                        <a class="p-0 w-100" href="{{url_for('channel',current_channel=channel)}}">
+                            &nbsp;
+                            {{channel.capitalize()}}
+                            &nbsp;
+                            <span class="badge badge-light badge-pill"></span>
+                        </a>
+                    </li>
+                    {%endif%}
+                    {%endfor%}
+                    {%endif%}
+                </ul>
+            </div>
+            <div class="channels">
+                <h6 class="mt-3">
+                    <!-- <input class="form-control hide" type="text" id="addChannel" placeholder="enter channel name"> -->
+                    <a href="#" class="btn btn-sm text-light w-100 text-left" id="">
+                        All Channels
+                    </a>
+                </h6>
+                <ul class="list-group channels">
+                    {%if allchannels %}
+                    {%for channel in allchannels%}
+                    {%if channel != "main"%}
+
+                    <li class="list-group-item d-flex align-items-center pl-3 m-0 channelList">
+                        <a class="p-0 w-100" href="#">
+                            &nbsp;
+                            <span class="channelListName">{{channel.capitalize()}}</span>
+                            &nbsp;
+                            <span style="font-size: 1.2em;">+</span>
+                        </a>
+                    </li>
+                    {%endif%}
+                    {%endfor%}
+                    {%endif%}
+                </ul>
+            </div>
+        </div>
+        <div class="container-fluid col-10 body-content p-0">
+            <div class="row bg bg-light body-content-head m-0">
+                <div class="col-10">
+                    <span></span>
+                </div>
+                <div class="col-2">
+                    <a href="#" class="disabled btn btn-sm leaveGroup">
+                        Leave channel
+                    </a>
+                </div>
+            </div>
+            <div class="body-content-messgaes border mt-2">
+                {% if conversations%}
+                {% for conversation in conversations%}
+                {%if username != conversation['username']%}
+
+                <div class="row user-messages mx-0">
+                    <div class="col-1 p-3">
+                        <img class="img-fluid" src="{{url_for('static', filename='img/no_profile.png')}}"
+                            alt="profile pic" title="profile pic" width="100">
+                    </div>
+                    <div class="col-11 pl-1">
+                        <div>
+                            <a class="text-secondary" href="#"><b>{{conversation['username']}}</b></a>
+                            &nbsp;
+                            <small class="text-secondary">
+                                {{conversation['timestamp']['hours']}}:{{conversation['timestamp']['minutes']}}
+                            </small>
+                        </div>
+                        <div>
+                            <p>{{conversation['message']}}</p>
+                        </div>
+                    </div>
+                </div>
+                {%else%}
+
+                <div class="row user-messages mx-0">
+                    <div class="col-11 pl-1">
+                        <div class="text-right">
+                            <small class="text-secondary">
+                                {{conversation['timestamp']['hours']}}:{{conversation['timestamp']['minutes']}}
+                            </small>
+                            &nbsp;
+                            <a class="text-secondary" href="#"><b>{{conversation['username']}}</b></a>
+                        </div>
+                        <div>
+                            <p class="text-right">{{conversation['message']}}</p>
+                        </div>
+                    </div>
+                    <div class="col-1 p-3">
+                        <img class="img-fluid" src="{{url_for('static', filename='img/no_profile.png')}}" alt=" profile
+                            pic" title="profile pic" width="100">
+                    </div>
+                </div>
+                {%endif%}
+                {%endfor%}
+                {%endif%}
+            </div>
+            <div class="message-input border">
+                <textarea class="form-control" name="message" id="message" rows="5" maxlength="300"></textarea>
+            </div>
+        </div>
+    </div>
+</section>
+{%endblock%}
